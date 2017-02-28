@@ -11,14 +11,14 @@ minetest.override_item("moreflowers:wild_carrot", {
 								  drop = {
 									  max_items = 1,
 									  items = {
-										  { items = {"morefarming:seed_wild_carrot"}, rarity = 12},
+										  { items = {"morefarming:seed_wildcarrot"}, rarity = 12},
 										  { items = {"moreflowers:wild_carrot"}},
 									  }
 								  }})
 
-farming.register_plant("morefarming:wild_carrot", {
+farming.register_plant("morefarming:wildcarrot", {
 								  description = "Wild Carrot seed",
-								  inventory_image = "morefarming_wild_carrot_seed.png",
+								  inventory_image = "morefarming_wildcarrot_seed.png",
 								  steps = 8,
 								  minlight = 13,
 								  maxlight = default.LIGHT_MAX,
@@ -30,18 +30,18 @@ local carrot_seed = "morefarming:seed_carrot"
 if redo then carrot_seed = "farming:carrot" end
 if plus then carrot_seed = "farming_plus:carrot_seed" end
 
-minetest.override_item("morefarming:wild_carrot_8", {
+minetest.override_item("morefarming:wildcarrot_8", {
 								  drop = {
 									  max_items = 3,
 									  items = {
-										  { items = {"morefarming:seed_wild_carrot"}, rarity = 6},
+										  { items = {"morefarming:seed_wildcarrot"}, rarity = 6},
 										  { items = {carrot_seed}, rarity = 8},
-										  { items = {"morefarming:wild_carrot"}, rarity = 2},
+										  { items = {"morefarming:wildcarrot"}, rarity = 2},
 										  { items = {"moreflowers:wild_carrot"}},
 									  }
 								  }})
 
-minetest.override_item("morefarming:wild_carrot", {
+minetest.override_item("morefarming:wildcarrot", {
 								  on_use = minetest.item_eat(1)
 																  })
 
@@ -93,8 +93,19 @@ elseif plus then
 										}
 									})
 end
-	
+
+-- Maidroid behaviour
 if not redo and not plus and minetest.get_modpath("maidroid_core") then
 	minetest.registered_items["moreflowers:wild_carrot"].groups["seed"] = 1
 	dofile(minetest.get_modpath("morefarming").."/maidroid_core_morefarming.lua")
+end
+
+-- bonemeal behaviour
+if minetest.get_modpath("bonemeal") and bonemeal then
+	
+	bonemeal:add_crop({{"morefarming:wildcarrot_", 8, "morefarming:seed_wildcarrot"}})
+	
+	if not redo and not plus then
+		bonemeal:add_crop({{"morefarming:carrot_", 8, "morefarming:seed_carrot"}})
+	end
 end

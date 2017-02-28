@@ -17,7 +17,7 @@ local target_plants = {
 	"farming:wheat_8",
 	"farming:cotton_8",
 	"moreflowers:wild_carrot",
-	"morefarming:wild_carrot_8",
+	"morefarming:wildcarrot_8",
 	"morefarming:carrot_8",
 }
 

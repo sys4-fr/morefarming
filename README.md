@@ -8,9 +8,12 @@ This mod add more things to do farming, make it more realistic, more harder and 
 Dependencies:
 - moreflowers, by me (https://github.com/sys4-fr/moreflowers)
 - farming
-- farming_redo, by TenPlus1 (optional)
-- farming_plus, by PilzAdam (optional)
-- maidroid_core, by tacigar (optional)
+
+Optional dependencies:
+- farming_redo by TenPlus1 (https://forum.minetest.net/viewtopic.php?f=11&t=9019)
+- farming_plus by PilzAdam (https://forum.minetest.net/viewtopic.php?f=11&t=2787&hilit=PilzAdam+farming)
+- maidroid_core by tacigar (https://forum.minetest.net/viewtopic.php?f=11&t=14808&hilit=maidroid+tacigar)
+- bonemeal by TenPlus1 (https://forum.minetest.net/viewtopic.php?f=9&t=16446)
 
 Why another farming mod ?
 - 1- I want to have a more realistic farming mod because when you spawn into a blank world, i think it's a non-sense if you found "domestic" vegetables wich already populate the world IMHO.
