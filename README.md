@@ -56,6 +56,5 @@ Behaviour with optional mods loaded (for now):
 - WARNING: If farming_redo or farming_plus is loaded then maidroid_core will not load due to incompatibility.
 
 LICENCES:
-- Code: GPLv3
+- Code & Textures: GPLv3
 - Code of maidroid_core_morefarming.lua: GPLv2.1+
-- Textures: WTFPL v2
