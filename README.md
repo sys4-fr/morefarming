@@ -44,16 +44,27 @@ A concrete example with Wild carrot:
 - 11- Good you have a new variety of carrots, you taste it and you realize that his nutritional power is much better than the wild version.
 
 For now this mod add:
-- Wild Carrot
-- Carrot (domestic)
+- Wild Carrot -> Carrot
 - Golden Carrot
+- Teosinte -> Corn
+- Corn on the Cob
+- Chicha (Bottle of Ethanol equivalent) (Original Texture by TenPlus1 modified by me)
 
 Behaviour with optional mods loaded (for now):
-- farming_redo: Domestic and golden carrots are provided by farming_redo. There is no carrot seeds.
-- farming_plus: Domestic carrots and carrots seeds are provided by farming_plus.
-- farming_redo and farming_plus together: Domestic carrots and carrots seeds provided by farming_plus, golden carrot by farming_redo.
-- maidroid_core: The core farming was modified so that your robot has ability to harvest and plant wild carrots (flowers and seeds) and domestic carrots.
-- WARNING: If farming_redo or farming_plus is loaded then maidroid_core will not load due to incompatibility.
+- farming_redo:
+--> Carrots and golden carrots are provided by farming_redo. There is no carrot seeds.
+--> Corn, Corn on the Cob, Chicha replaced by Bottle of Ethanol (craft slightly changed)
+- farming_plus:
+--> Carrots and carrots seeds are provided by farming_plus.
+- farming_redo and farming_plus together:
+--> Carrots and carrots seeds provided by farming_plus, golden carrot by farming_redo.
+- maidroid_core: The core farming was modified so that your robot has ability to harvest and plant:
+--> wild carrots (flowers and seeds)
+--> Carrots
+--> Teosinte (Flowers and seeds)
+--> Corn
+
+WARNING: If farming_redo or farming_plus is loaded then maidroid_core will not load due to incompatibility.
 
 LICENCES:
 - Code & Textures: GPLv3

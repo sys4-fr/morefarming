@@ -6,97 +6,297 @@
 local redo = farming.mod and farming.mod == "redo"
 local plus = minetest.get_modpath("farming_plus")
 
--- Wild carrot
-minetest.override_item("moreflowers:wild_carrot", {
-								  drop = {
-									  max_items = 1,
-									  items = {
-										  { items = {"morefarming:seed_wildcarrot"}, rarity = 12},
-										  { items = {"moreflowers:wild_carrot"}},
-									  }
-								  }})
+-- Override flowers --
+--
+minetest.override_item(
+	"moreflowers:wild_carrot",	{
+		drop = {
+			max_items = 1,
+			items = {
+				{ items = {"morefarming:seed_wildcarrot"}, rarity = 12},
+				{ items = {"moreflowers:wild_carrot"}},
+			}
+		}})
 
-farming.register_plant("morefarming:wildcarrot", {
-								  description = "Wild Carrot seed",
-								  inventory_image = "morefarming_wildcarrot_seed.png",
-								  steps = 8,
-								  minlight = 13,
-								  maxlight = default.LIGHT_MAX,
-								  fertility = {"grassland"},
-								  groups = {flammable = 4},
-																  })
+minetest.override_item(
+	"moreflowers:teosinte", {
+		drop = {
+			max_items = 1,
+			items = {
+				{ items = {"morefarming:seed_teosinte"}, rarity = 6},
+				{ items = {"moreflowers:teosinte"}},
+			}
+		}})
 
-local carrot_seed = "morefarming:seed_carrot"
-if redo then carrot_seed = "farming:carrot" end
-if plus then carrot_seed = "farming_plus:carrot_seed" end
 
-minetest.override_item("morefarming:wildcarrot_8", {
-								  drop = {
-									  max_items = 3,
-									  items = {
-										  { items = {"morefarming:seed_wildcarrot"}, rarity = 6},
-										  { items = {carrot_seed}, rarity = 8},
-										  { items = {"morefarming:wildcarrot"}, rarity = 2},
-										  { items = {"moreflowers:wild_carrot"}},
-									  }
-								  }})
+-- Register morefarming plants --
+--
+-- Wild Carrot
+farming.register_plant(
+	"morefarming:wildcarrot",
+	{
+		description = "Wild Carrot seed",
+		inventory_image = "morefarming_wildcarrot_seed.png",
+		steps = 8,
+		minlight = 13,
+		maxlight = default.LIGHT_MAX,
+		fertility = {"grassland"},
+		groups = {flammable = 4},
+	})
 
-minetest.override_item("morefarming:wildcarrot", {
-								  on_use = minetest.item_eat(1)
-																  })
+minetest.override_item(
+	"morefarming:wildcarrot",
+	{
+		on_use = minetest.item_eat(1)
+	})
+
+-- Teosinte
+farming.register_plant(
+	"morefarming:teosinte",
+	{
+		description = "Teosinte seed",
+		inventory_image = "morefarming_teosinte_seed.png",
+		steps = 8,
+		minlight = 13,
+		maxlight = default.LIGHT_MAX,
+		fertility = {"grassland", "desert"},
+		groups = {flammable = 4},
+	})
+
+for i=1, 8 do
+	minetest.override_item(
+		"morefarming:teosinte_"..i,
+		{
+			visual_scale = 1.3
+		})
+end
 
 if not redo and not plus then
 	-- Carrot
-	farming.register_plant("morefarming:carrot", {
-									  description = "Carrot seed",
-									  paramtype2 = "meshoptions",
-									  inventory_image = "morefarming_carrot_seed.png",
-									  steps = 8,
-									  minlight = 13,
-									  maxlight = default.LIGHT_MAX,
-									  fertility = {"grassland"},
-									  groups = {flammable = 4},
-									  place_param2 = 3,
-																})
+	farming.register_plant(
+		"morefarming:carrot",
+		{
+			description = "Carrot seed",
+			paramtype2 = "meshoptions",
+			inventory_image = "morefarming_carrot_seed.png",
+			steps = 8,
+			minlight = 13,
+			maxlight = default.LIGHT_MAX,
+			fertility = {"grassland"},
+			groups = {flammable = 4},
+			place_param2 = 3,
+		})
 	
-	minetest.override_item("morefarming:carrot", {
-									  on_use = minetest.item_eat(4)
-																})
+	minetest.override_item(
+		"morefarming:carrot",
+		{
+			on_use = minetest.item_eat(4)
+		})
 end
-
-local carrot_item = "morefarming:carrot"
-if plus then carrot_item = "farming_plus:carrot_item" end
 
 if not redo then
-	-- golden carrot
-	minetest.register_craftitem("morefarming:carrot_gold", {
-											 description = "Golden Carrot",
-											 inventory_image = "morefarming_carrot_gold.png",
-											 on_use = minetest.item_eat(6),
-																			 })
+	-- Corn
+	farming.register_plant(
+		"morefarming:corn",
+		{
+			description = "Corn seed",
+			inventory_image = "morefarming_corn_seed.png",
+			steps = 8,
+			minlight = 13,
+			maxlight = default.LIGHT_MAX,
+			fertility = {"grassland", "desert"},
+			groups = {flammable = 4},
+		})
+
+	for i=1, 8 do
+		minetest.override_item(
+			"morefarming:corn_"..i,
+			{
+				visual_scale = 1.6
+			})
+	end
 	
-	minetest.register_craft({
-										output = "morefarming:carrot_gold",
-										recipe = {
-											{"", "default:gold_lump", ""},
-											{"default:gold_lump", carrot_item, "default:gold_lump"},
-											{"", "default:gold_lump", ""},
-										}
-									})
-elseif plus then
-	minetest.register_craft({
-										output = "farming:carrot_gold",
-										recipe = {
-											{"", "default:gold_lump", ""},
-											{"default:gold_lump", carrot_item, "default:gold_lump"},
-											{"", "default:gold_lump", ""},
-										}
-									})
+	minetest.override_item(
+		"morefarming:corn",
+		{
+			on_use = minetest.item_eat(3)
+		})
+	
 end
+
+-- Override mature plants--
+--
+local carrot_seed = "morefarming:seed_carrot"
+local corn_seed = "morefarming:seed_corn"
+
+if redo then
+	carrot_seed = "farming:carrot"
+	corn_seed = "farming:corn"
+end
+
+if plus then
+	carrot_seed = "farming_plus:carrot_seed"
+end
+
+-- Wild Carrot
+minetest.override_item(
+	"morefarming:wildcarrot_8", {
+		drop = {
+			max_items = 3,
+			items = {
+				{ items = {"morefarming:seed_wildcarrot"}, rarity = 6},
+				{ items = {carrot_seed}, rarity = 8},
+				{ items = {"morefarming:wildcarrot"}, rarity = 2},
+				{ items = {"moreflowers:wild_carrot"}},
+			}
+		}})
+
+-- Teosinte
+minetest.override_item(
+	"morefarming:teosinte_8", {
+		drop = {
+			max_items = 3,
+			items = {
+				{ items = {"morefarming:seed_teosinte"}, rarity = 3},
+				{ items = {corn_seed}, rarity = 8},
+				{ items = {"morefarming:teosinte"}, rarity = 2},
+				{ items = {"moreflowers:teosinte"}},
+			}
+		}})
+
+-- Register craftitems
+--
+local carrot_item = "morefarming:carrot"
+local corn_item = "morefarming:corn"
+
+if plus then
+	carrot_item = "farming_plus:carrot_item"
+end
+	
+if not redo then
+
+	-- golden carrot
+	minetest.register_craftitem(
+		"morefarming:carrot_gold",
+		{
+			description = "Golden Carrot",
+			inventory_image = "morefarming_carrot_gold.png",
+			on_use = minetest.item_eat(6),
+		})
+	
+	minetest.register_craft(
+		{
+			output = "morefarming:carrot_gold",
+			recipe = {
+				{"", "default:gold_lump", ""},
+				{"default:gold_lump", carrot_item, "default:gold_lump"},
+				{"", "default:gold_lump", ""},
+			}
+		})
+
+	-- Corn on the cob
+	minetest.register_craftitem(
+		"morefarming:corn_cooked",
+		{
+			description = "Corn on the Cob",
+			inventory_image = "morefarming_corn_cooked.png",
+			on_use = minetest.item_eat(5),
+		})
+
+	minetest.register_craft(
+		{
+			type = "cooking",
+			cooktime = 10,
+			output = "morefarming:corn_cooked",
+			recipe = "morefarming:corn"
+		})
+
+	if minetest.get_modpath("vessels") then
+		-- Chicha (Ethanol equivalent ;)
+		minetest.register_craftitem(
+			"morefarming:chicha",
+			{
+				description = "Chicha",
+				inventory_image = "morefarming_chicha.png",
+			})
+		
+		minetest.register_craft(
+			{
+				output = "morefarming:chicha 2",
+				recipe = {
+					{ "vessels:glass_bottle", "vessels:glass_bottle", "morefarming:corn"},
+					{ "morefarming:corn", "morefarming:corn", "morefarming:corn"},
+				}
+			})
+
+		minetest.register_craft(
+			{
+				output = "morefarming:chicha",
+				recipe = {
+					{ "vessels:glass_bottle", "morefarming:teosinte", "morefarming:teosinte"},
+					{ "morefarming:teosinte", "morefarming:teosinte", "morefarming:teosinte"},
+				}
+			})
+
+		minetest.register_craft(
+			{
+				type = "fuel",
+				recipe = "morefarming:chicha",
+				burntime = 240,
+				replacements = {{"morefarming:chicha", "vessels:glass_bottle"}}
+			})
+	end
+		
+elseif plus then
+	-- Golden Carrot
+	minetest.register_craft(
+		{
+			output = "farming:carrot_gold",
+			recipe = {
+				{"", "default:gold_lump", ""},
+				{"default:gold_lump", carrot_item, "default:gold_lump"},
+				{"", "default:gold_lump", ""},
+			}
+		})
+end
+
+if redo then
+
+	if minetest.get_modpath("vessels") then
+		-- Bottle of Ethanol
+		minetest.clear_craft(
+			{
+				recipe = {
+					{"vessels:glass_bottle", "farming:corn", "farming:corn"},
+					{"farming:corn", "farming:corn", "farming:corn"},
+				}
+			})
+		
+		minetest.register_craft(
+			{
+				output = "farming:bottle_ethanol 2",
+				recipe = {
+					{ "vessels:glass_bottle", "vessels:glass_bottle", "farming:corn"},
+					{ "farming:corn", "farming:corn", "farming:corn"},
+				}
+			})
+		
+		minetest.register_craft(
+			{
+				output = "farming:bottle_ethanol",
+				recipe = {
+					{ "vessels:glass_bottle", "morefarming:teosinte", "morefarming:teosinte"},
+					{ "morefarming:teosinte", "morefarming:teosinte", "morefarming:teosinte"},
+				}
+			})
+	end
+end
+
 
 -- Maidroid behaviour
 if not redo and not plus and minetest.get_modpath("maidroid_core") then
 	minetest.registered_items["moreflowers:wild_carrot"].groups["seed"] = 1
+	minetest.registered_items["moreflowers:teosinte"].groups["seed"] = 1
 	dofile(minetest.get_modpath("morefarming").."/maidroid_core_morefarming.lua")
 end
 
@@ -104,8 +304,13 @@ end
 if minetest.get_modpath("bonemeal") and bonemeal then
 	
 	bonemeal:add_crop({{"morefarming:wildcarrot_", 8, "morefarming:seed_wildcarrot"}})
+	bonemeal:add_crop({{"morefarming:teosinte_", 8, "morefarming:seed_teosinte"}})
 	
-	if not redo and not plus then
-		bonemeal:add_crop({{"morefarming:carrot_", 8, "morefarming:seed_carrot"}})
+	if not redo then
+		if not plus then
+			bonemeal:add_crop({{"morefarming:carrot_", 8, "morefarming:seed_carrot"}})
+		end
+		
+		bonemeal:add_crop({{"morefarming:corn_", 8, "morefarming:seed_corn"}})
 	end
 end

@@ -19,6 +19,9 @@ local target_plants = {
 	"moreflowers:wild_carrot",
 	"morefarming:wildcarrot_8",
 	"morefarming:carrot_8",
+	"moreflowers:teosinte",
+	"morefarming:teosinte_8",
+	"morefarming:corn_8",
 }
 
 local _aux = maidroid_core._aux
