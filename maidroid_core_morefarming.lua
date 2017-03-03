@@ -6,6 +6,7 @@
 ------------------------------------------------------------
 
 local redo = farming.mod and farming.mod == "redo"
+local plus = minetest.get_modpath("farming_plus")
 
 local state = {
 	WALK_RANDOMLY = 0,
@@ -24,15 +25,51 @@ local target_plants = {
 	"morefarming:teosinte_8",
 }
 
+local seed_plants = {}
+
 if redo then
 	local redo_plants = {
-		"farming:carrot_8",
-		"farming:corn_8",
+		{"farming:barley_7", nil},
+		{"farming:blueberry_4", "farming:blueberries", "farming:blueberry"},
+		{"farming:carrot_8", nil},
+		{"farming:coffee_5", "farming:coffee_beans", "farming:coffee"},
+		{"farming:corn_8", nil},
+		{"farming:cucumber_4", nil},
+		{"farming:melon_8", "farming:melon_slice", "farming:melon"},
+		{"farming:potato_4", nil},
+		{"farming:pumpkin_8", "farming:pumpkin_slice", "farming:pumpkin"},
+		{"farming:raspberry_4", "farming:raspberries", "farming:raspberry"},
+		{"farming:rhubarb_3", nil},
+		{"farming:tomato_8", nil}
 	}
 	for _, item in pairs(redo_plants) do
+		table.insert(target_plants, item[1])
+		if item[2] then
+			seed_plants[item[2] ] = item[3]
+		end
+	end
+end
+
+if plus then
+	local plus_plants = {
+		"farming_plus:carrot",
+		"farming_plus:orange",
+		"farming_plus:potato",
+		"farming_plus:rhubarb",
+		"farming_plus:strawberry",
+		"farming_plus:tomato",
+		"farming_plus:weed",
+	}
+	if not redo then
+		table.insert(plus_plants, "morefarming:corn_8")
+	end
+	
+	for _, item in pairs(plus_plants) do
 		table.insert(target_plants, item)
 	end
-else
+end
+
+if not redo and not plus then
 	local morefarming_plants = {
 		"morefarming:carrot_8",
 		"morefarming:corn_8",
@@ -273,18 +310,23 @@ plant = function(self, dtime)
 				under = vector.add(self.destination, {x = 0, y = -1, z = 0}),
 				above = self.destination,
 			}
-			if redo then
+			if redo or plus then
 				
 				local t = string.split(itemname, "seed_")
 				if t[2] then
 					local newstackname = t[1]..t[2].."_1"
 					stack = farming.place_seed(stack, minetest.get_player_by_name(self.owner_name), pointed_thing, newstackname)
 				elseif minetest.get_item_group(itemname, "redo") == 1 then
+					if seed_plants[itemname] then
+						itemname = seed_plants[itemname]
+					end
 					stack = farming.place_seed(stack, minetest.get_player_by_name(self.owner_name), pointed_thing, itemname.."_1")
+				elseif minetest.get_item_group(itemname, "plus") == 1 then
+					stack = farming.place_seed(stack, minetest.get_player_by_name(self.owner_name), pointed_thing,
+														string.split(itemname, "_seed")[1].."_1")
 				else
 					stack = farming.place_seed(stack, minetest.get_player_by_name(self.owner_name), pointed_thing, itemname)
 				end
-
 			else
 				farming.place_seed(stack, minetest.get_player_by_name(self.owner_name), pointed_thing, itemname)
 			end

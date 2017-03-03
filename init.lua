@@ -308,8 +308,18 @@ if minetest.get_modpath("maidroid_core") then
 
 	if redo then
 		local redo_plants = {
+			"farming:seed_barley",
+			"farming:blueberries",
 			"farming:carrot",
+			"farming:coffee_beans",
 			"farming:corn",
+			"farming:cucumber",
+			"farming:melon_slice",
+			"farming:potato",
+			"farming:pumpkin_slice",
+			"farming:raspberries",
+			"farming:rhubarb",
+			"farming:tomato",
 		}
 
 		for _, item in pairs(redo_plants) do
@@ -317,6 +327,25 @@ if minetest.get_modpath("maidroid_core") then
 				item,
 				{
 					groups = {seed = 1, redo = 1}
+				})
+		end
+	end
+
+	if plus then
+		local plus_plants = {
+			"farming_plus:carrot_seed",
+			"farming_plus:orange_seed",
+			"farming_plus:potato_seed",
+			"farming_plus:rhubarb_seed",
+			"farming_plus:strawberry_seed",
+			"farming_plus:tomato_seed",
+		}
+
+		for _, item in pairs(plus_plants) do
+			minetest.override_item(
+				item,
+				{
+					groups = {seed = 1, plus = 1}
 				})
 		end
 	end
@@ -339,5 +368,9 @@ if minetest.get_modpath("bonemeal") and bonemeal then
 	else
 		bonemeal:add_crop({{"farming:corn_", 8, "farming:corn"}})
 		bonemeal:add_crop({{"farming:carrot_", 8, "farming:carrot"}})
+
+		if plus then
+			bonemeal:add_crop({{"farming_plus:carrot_", 3, "farming_plus:carrot_seed"}})
+		end
 	end
 end
