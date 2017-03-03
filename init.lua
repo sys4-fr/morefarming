@@ -294,9 +294,33 @@ end
 
 
 -- Maidroid behaviour
-if not redo and not plus and minetest.get_modpath("maidroid_core") then
-	minetest.registered_items["moreflowers:wild_carrot"].groups["seed"] = 1
-	minetest.registered_items["moreflowers:teosinte"].groups["seed"] = 1
+--if not redo and not plus and minetest.get_modpath("maidroid_core") then
+if minetest.get_modpath("maidroid_core") then
+
+	local wild_plants = {
+		"moreflowers:wild_carrot",
+		"moreflowers:teosinte",
+	}
+
+	for _, item in pairs(wild_plants) do
+		minetest.registered_items[item].groups["seed"] = 1
+	end
+
+	if redo then
+		local redo_plants = {
+			"farming:carrot",
+			"farming:corn",
+		}
+
+		for _, item in pairs(redo_plants) do
+			minetest.override_item(
+				item,
+				{
+					groups = {seed = 1, redo = 1}
+				})
+		end
+	end
+
 	dofile(minetest.get_modpath("morefarming").."/maidroid_core_morefarming.lua")
 end
 
@@ -312,5 +336,8 @@ if minetest.get_modpath("bonemeal") and bonemeal then
 		end
 		
 		bonemeal:add_crop({{"morefarming:corn_", 8, "morefarming:seed_corn"}})
+	else
+		bonemeal:add_crop({{"farming:corn_", 8, "farming:corn"}})
+		bonemeal:add_crop({{"farming:carrot_", 8, "farming:carrot"}})
 	end
 end

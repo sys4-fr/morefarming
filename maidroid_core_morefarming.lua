@@ -5,6 +5,8 @@
 -- Modified file by sys4 for morefarming mod
 ------------------------------------------------------------
 
+local redo = farming.mod and farming.mod == "redo"
+
 local state = {
 	WALK_RANDOMLY = 0,
 	WALK_TO_PLANT = 1,
@@ -18,11 +20,27 @@ local target_plants = {
 	"farming:cotton_8",
 	"moreflowers:wild_carrot",
 	"morefarming:wildcarrot_8",
-	"morefarming:carrot_8",
 	"moreflowers:teosinte",
 	"morefarming:teosinte_8",
-	"morefarming:corn_8",
 }
+
+if redo then
+	local redo_plants = {
+		"farming:carrot_8",
+		"farming:corn_8",
+	}
+	for _, item in pairs(redo_plants) do
+		table.insert(target_plants, item)
+	end
+else
+	local morefarming_plants = {
+		"morefarming:carrot_8",
+		"morefarming:corn_8",
+	}
+	for _, item in pairs(morefarming_plants) do
+		table.insert(target_plants, item)
+	end
+end
 
 local _aux = maidroid_core._aux
 
@@ -255,8 +273,22 @@ plant = function(self, dtime)
 				under = vector.add(self.destination, {x = 0, y = -1, z = 0}),
 				above = self.destination,
 			}
-			farming.place_seed(stack, minetest.get_player_by_name(self.owner_name), pointed_thing, stack:get_name())
+			if redo then
+				
+				local t = string.split(itemname, "seed_")
+				if t[2] then
+					local newstackname = t[1]..t[2].."_1"
+					stack = farming.place_seed(stack, minetest.get_player_by_name(self.owner_name), pointed_thing, newstackname)
+				elseif minetest.get_item_group(itemname, "redo") == 1 then
+					stack = farming.place_seed(stack, minetest.get_player_by_name(self.owner_name), pointed_thing, itemname.."_1")
+				else
+					stack = farming.place_seed(stack, minetest.get_player_by_name(self.owner_name), pointed_thing, itemname)
+				end
 
+			else
+				farming.place_seed(stack, minetest.get_player_by_name(self.owner_name), pointed_thing, itemname)
+			end
+			
 			stack:take_item(1)
 			self:set_wield_item_stack(stack)
 		end
