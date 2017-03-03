@@ -358,19 +358,27 @@ if minetest.get_modpath("bonemeal") and bonemeal then
 	
 	bonemeal:add_crop({{"morefarming:wildcarrot_", 8, "morefarming:seed_wildcarrot"}})
 	bonemeal:add_crop({{"morefarming:teosinte_", 8, "morefarming:seed_teosinte"}})
-	
-	if not redo then
-		if not plus then
-			bonemeal:add_crop({{"morefarming:carrot_", 8, "morefarming:seed_carrot"}})
-		end
-		
-		bonemeal:add_crop({{"morefarming:corn_", 8, "morefarming:seed_corn"}})
-	else
-		bonemeal:add_crop({{"farming:corn_", 8, "farming:corn"}})
-		bonemeal:add_crop({{"farming:carrot_", 8, "farming:carrot"}})
 
-		if plus then
-			bonemeal:add_crop({{"farming_plus:carrot_", 3, "farming_plus:carrot_seed"}})
-		end
+	if not redo and not plus then
+		bonemeal:add_crop({{"morefarming:carrot_", 8, "morefarming:seed_carrot"}})
+	end
+
+	if not redo then
+		bonemeal:add_crop({{"morefarming:corn_", 8, "morefarming:seed_corn"}})
+	end
+
+	if redo then
+		bonemeal:add_crop({{"farming:barley_", 7, "farming:seed_barley"}})
+		bonemeal:add_crop({{"farming:blueberry_", 4, "farming:blueberries"}})
+		bonemeal:add_crop({{"farming:carrot_", 8, "farming:carrot"}})
+		bonemeal:add_crop({{"farming:coffee_", 5, "farming:coffee_beans"}})
+		bonemeal:add_crop({{"farming:corn_", 8, "farming:corn"}})
+		bonemeal:add_crop({{"farming:cucumber_", 4, "farming:cucumber"}})
+		bonemeal:add_crop({{"farming:melon_", 8, "farming:melon_slice"}})
+		bonemeal:add_crop({{"farming:potato_", 4, "farming:potato"}})
+		bonemeal:add_crop({{"farming:pumpkin_", 8, "farming:pumpkin_slice"}})
+		bonemeal:add_crop({{"farming:raspberry_", 4, "farming:raspberries"}})
+		bonemeal:add_crop({{"farming:rhubarb_", 3, "farming:rhubarb"}})
+		bonemeal:add_crop({{"farming:tomato_", 8, "farming:tomato"}})
 	end
 end
