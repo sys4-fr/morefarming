@@ -6,6 +6,14 @@
 local redo = farming.mod and farming.mod == "redo"
 local plus = minetest.get_modpath("farming_plus")
 
+local function item_eat(hunger_change, replace_with_item, poisen, heal)
+	if diet then
+		return diet.item_eat(hunger_change, replace_with_item, poisen, heal)
+	else
+		return minetest.item_eat(hunger_change)
+	end
+end
+
 -- Override flowers --
 --
 minetest.override_item(
@@ -47,7 +55,7 @@ farming.register_plant(
 minetest.override_item(
 	"morefarming:wildcarrot",
 	{
-		on_use = minetest.item_eat(1)
+		on_use = item_eat(1)
 	})
 
 -- Teosinte
@@ -90,7 +98,7 @@ if not redo and not plus then
 	minetest.override_item(
 		"morefarming:carrot",
 		{
-			on_use = minetest.item_eat(4)
+			on_use = item_eat(2)
 		})
 end
 
@@ -119,7 +127,7 @@ if not redo then
 	minetest.override_item(
 		"morefarming:corn",
 		{
-			on_use = minetest.item_eat(3)
+			on_use = item_eat(3)
 		})
 	
 end
@@ -181,7 +189,7 @@ if not redo then
 		{
 			description = "Golden Carrot",
 			inventory_image = "morefarming_carrot_gold.png",
-			on_use = minetest.item_eat(6),
+			on_use = item_eat(6, "", nil, 20),
 		})
 	
 	minetest.register_craft(
@@ -200,7 +208,7 @@ if not redo then
 		{
 			description = "Corn on the Cob",
 			inventory_image = "morefarming_corn_cooked.png",
-			on_use = minetest.item_eat(5),
+			on_use = item_eat(5),
 		})
 
 	minetest.register_craft(
@@ -218,6 +226,7 @@ if not redo then
 			{
 				description = "Chicha",
 				inventory_image = "morefarming_chicha.png",
+				on_use = item_eat(2, "vessels:glass_bottle", 2)
 			})
 		
 		minetest.register_craft(

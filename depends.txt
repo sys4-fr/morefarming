@@ -3,3 +3,4 @@ farming
 farming_plus?
 maidroid_core?
 bonemeal?
+diet?
