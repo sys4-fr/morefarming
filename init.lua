@@ -361,9 +361,9 @@ if minetest.get_modpath("maidroid_core") then
 			local groups = minetest.registered_items[item].groups
 			if groups then
 				groups.seed = 1
-				groups.redo = 1
+				groups.plus = 1
 			else
-				groups = {seed = 1, redo = 1}
+				groups = {seed = 1, plus = 1}
 			end
 			minetest.override_item(
 				item,
