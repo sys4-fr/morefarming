@@ -332,10 +332,17 @@ if minetest.get_modpath("maidroid_core") then
 		}
 
 		for _, item in pairs(redo_plants) do
+			local groups = minetest.registered_items[item].groups
+			if groups then
+				groups.seed = 1
+				groups.redo = 1
+			else
+				groups = {seed = 1, redo = 1}
+			end
 			minetest.override_item(
 				item,
 				{
-					groups = {seed = 1, redo = 1}
+					groups = groups
 				})
 		end
 	end
@@ -351,10 +358,17 @@ if minetest.get_modpath("maidroid_core") then
 		}
 
 		for _, item in pairs(plus_plants) do
+			local groups = minetest.registered_items[item].groups
+			if groups then
+				groups.seed = 1
+				groups.redo = 1
+			else
+				groups = {seed = 1, redo = 1}
+			end
 			minetest.override_item(
 				item,
 				{
-					groups = {seed = 1, plus = 1}
+					groups = groups
 				})
 		end
 	end
