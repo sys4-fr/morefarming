@@ -5,9 +5,10 @@
 
 local redo = farming.mod and farming.mod == "redo"
 local plus = minetest.get_modpath("farming_plus")
+local diet_mod = minetest.get_modpath("diet")
 
 local function item_eat(hunger_change, replace_with_item, poisen, heal)
-	if diet then
+	if diet_mod and diet then
 		return diet.item_eat(hunger_change, replace_with_item, poisen, heal)
 	else
 		return minetest.item_eat(hunger_change)
