@@ -317,6 +317,11 @@ if minetest.get_modpath("maidroid_core") then
 	end
 
 	if redo then
+		if minetest.registered_items["farming:hemp_leaf"] then
+			-- Bugfix farming redo
+			minetest.override_item("farming:hemp_leaf", { groups = {seed = 0 } })
+		end
+		
 		local redo_plants = {
 			"farming:seed_barley",
 			"farming:blueberries",
@@ -330,6 +335,14 @@ if minetest.get_modpath("maidroid_core") then
 			"farming:raspberries",
 			"farming:rhubarb",
 			"farming:tomato",
+			"farming:beetroot",
+			"farming:chili_pepper",
+			"farming:garlic_clove",
+			"farming:seed_hemp",
+			"farming:onion",
+			"farming:pea_pod",
+			"farming:peppercorn",
+			"farming:pineapple_top",
 		}
 
 		for _, item in pairs(redo_plants) do

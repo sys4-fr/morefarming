@@ -29,6 +29,7 @@ local seed_plants = {}
 
 if redo then
 	local redo_plants = {
+		--{"farming:barley_7", "farming:seed_barley", "farming:barley"},
 		{"farming:barley_7", nil},
 		{"farming:blueberry_4", "farming:blueberries", "farming:blueberry"},
 		{"farming:carrot_8", nil},
@@ -40,7 +41,15 @@ if redo then
 		{"farming:pumpkin_8", "farming:pumpkin_slice", "farming:pumpkin"},
 		{"farming:raspberry_4", "farming:raspberries", "farming:raspberry"},
 		{"farming:rhubarb_3", nil},
-		{"farming:tomato_8", nil}
+		{"farming:tomato_8", nil},
+		{"farming:beetroot_5", nil},
+		{"farming:chili_8", "farming:chili_pepper", "farming:chili"},
+		{"farming:garlic_5","farming:garlic_clove", "farming:garlic"},
+		{"farming:hemp_8", nil}, --"farming:seed_hemp", "farming:hemp"},
+		{"farming:onion_5", nil},
+		{"farming:pea_5", "farming:pea_pod", "farming:pea"},
+		{"farming:pepper_5", "farming:peppercorn", "farming:pepper"},
+		{"farming:pineapple_8", "farming:pineapple_top", "farming:pineapple"},
 	}
 	for _, item in pairs(redo_plants) do
 		table.insert(target_plants, item[1])
@@ -177,11 +186,13 @@ walk_randomly = function(self, dtime)
 		if velocity.y == 0 then
 			local front_node = self:get_front_node()
 
-			if minetest.get_item_group(front_node.name, "fence") > 0 then
+			if minetest.get_item_group(front_node.name, "fence") > 0
+			or (front_node.name ~= "air" and minetest.registered_nodes[front_node.name] ~= nil and minetest.registered_nodes[front_node.name].walkable) then
 				self:change_direction_randomly()
-			elseif front_node.name ~= "air" and minetest.registered_nodes[front_node.name] ~= nil
-			and minetest.registered_nodes[front_node.name].walkable then
-				self.object:setvelocity{x = velocity.x, y = 6, z = velocity.z}
+			
+--			elseif front_node.name ~= "air" and minetest.registered_nodes[front_node.name] ~= nil
+--			and minetest.registered_nodes[front_node.name].walkable then
+--				self.object:setvelocity{x = velocity.x, y = 6, z = velocity.z}
 			end
 		end
 		return
@@ -285,17 +296,17 @@ walk_to_plant_and_mow_common = function(self, dtime)
 			self:change_direction(self.path[1])
 		end
 
-	else
-		-- if maidroid is stopped by obstacles, the maidroid must jump.
-		local velocity = self.object:getvelocity()
-		if velocity.y == 0 then
-			local front_node = self:get_front_node()
-			if front_node.name ~= "air" and minetest.registered_nodes[front_node.name] ~= nil
-			and minetest.registered_nodes[front_node.name].walkable
-			and not (minetest.get_item_group(front_node.name, "fence") > 0) then
-				self.object:setvelocity{x = velocity.x, y = 6, z = velocity.z}
-			end
-		end
+--	else
+--		-- if maidroid is stopped by obstacles, the maidroid must jump.
+--		local velocity = self.object:getvelocity()
+--		if velocity.y == 0 then
+--			local front_node = self:get_front_node()
+--			if front_node.name ~= "air" and minetest.registered_nodes[front_node.name] ~= nil
+--			and minetest.registered_nodes[front_node.name].walkable
+--			and not (minetest.get_item_group(front_node.name, "fence") > 0) then
+--				self.object:setvelocity{x = velocity.x, y = 6, z = velocity.z}
+--			end
+--		end
 	end
 end
 
