@@ -1,5 +1,5 @@
-# morefarming
-by sys4
+## morefarming
+> by sys4
 
 A Minetest mod that extend the default farming mod of minetest_game
 
