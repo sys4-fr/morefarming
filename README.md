@@ -1,7 +1,7 @@
 ## morefarming
 > by sys4
 
-A Minetest mod that extend the default farming mod of minetest_game
+A Minetest mod that extend the default farming mod of minetest_game.
 
 This mod add more things to do farming, make it more realistic, more harder and make it compatible with maidroid core farming.
 
